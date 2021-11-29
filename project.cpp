@@ -187,7 +187,7 @@ void Menu()
         int choise;
         vector<int> Modules;
         cout << "Name of the Student:";
-        cin >> name;
+        std::getline(std::cin >> std::ws, name);
      
         int counter = 0;
         int temp;
@@ -227,10 +227,11 @@ void Menu()
     case 2:
     {
         string mod_name;
+        
         cout << "You're now adding a Module to the database \n\n";
         cout << "Module Name:\n";
-        cin >> mod_name;
-        std::getline(cin,mod_name);
+        std::getline(std::cin >> std::ws, mod_name);
+        cout << mod_name;
         string sql = "INSERT INTO Modules (Name) VALUES ('"+mod_name+"'); ";
     
         rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
@@ -253,7 +254,7 @@ void Menu()
         }
         cout << "\x1B[32m Welcome to the Class Menu\033[0m  \n\n";
         cout << "Write the name of the class\n\n";
-        cin >> class_name;
+        std::getline(std::cin >> std::ws, class_name);
 
         cout << "Write the time of the class (Format 00:00PM)\n\n";
         cin >> time;
@@ -284,7 +285,7 @@ void Menu()
     {
         string Room_Name;
         cout << "Enter the room name:";
-        cin >> Room_Name;
+        std::getline(std::cin >> std::ws, Room_Name);
 
         string sql = "INSERT INTO Rooms (Name) VALUES ('"+Room_Name+"'); ";
 
@@ -307,7 +308,7 @@ void Menu()
         }
         cout << "\x1B[32m Welcome to the Lecturers Menu\033[0m  \n\n";
         cout << "Write the name of the Lecturers\n\n";
-        cin >> Lecturers_Name;
+        std::getline(std::cin >> std::ws, Lecturers_Name);
 
         cout << "Write the time of the Lecturers (Format 00:00PM)\n\n";
         cin >> time;
