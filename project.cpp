@@ -231,7 +231,6 @@ void Menu()
         cout << "You're now adding a Module to the database \n\n";
         cout << "Module Name:\n";
         std::getline(std::cin >> std::ws, mod_name);
-        cout << mod_name;
         string sql = "INSERT INTO Modules (Name) VALUES ('"+mod_name+"'); ";
     
         rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
@@ -362,7 +361,7 @@ void Menu()
             cout << "\t Name: " << Student_Data[0][1] << endl;
             cout << "\t Time: " << Student_Data[0][2] << endl;
             SQL_Data Room_Data  = select_stmt(("SELECT * FROM Rooms WHERE ID = "+Student_Data[0][3]+"").c_str());
-            cout << "\t Room: \n" << Room_Data[0][1];
+            cout << "\t Room: " << Room_Data[0][1] << "\n";
             
 
         }
@@ -375,7 +374,7 @@ void Menu()
             cout << "\t Name: " << Student_Data[0][1] << endl;
             cout << "\t Time: " << Student_Data[0][2] << endl;
             SQL_Data Room_Data  = select_stmt(("SELECT * FROM Rooms WHERE ID = "+Student_Data[0][3]+"").c_str());
-            cout << "\t Room: " << Room_Data[0][1];
+            cout << "\t Room: " << Room_Data[0][1] << "\n";
             
 
         }
