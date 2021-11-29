@@ -188,7 +188,7 @@ void Menu()
         vector<int> Modules;
         cout << "Name of the Student:";
         cin >> name;
-        std::getline(cin,name);
+     
         int counter = 0;
         int temp;
         if (data.empty())
@@ -210,7 +210,7 @@ void Menu()
             cout << to_string(temp+1) << ". Exit " << "\n";
             
             cin >> choise;     
-            if (choise != temp)Modules.push_back(choise);
+            if (choise != temp+1)Modules.push_back(choise);
         } while (choise != temp+1);
         for(auto item : Modules)
         {
@@ -254,10 +254,10 @@ void Menu()
         cout << "\x1B[32m Welcome to the Class Menu\033[0m  \n\n";
         cout << "Write the name of the class\n\n";
         cin >> class_name;
-        std::getline(cin,class_name);
+
         cout << "Write the time of the class (Format 00:00PM)\n\n";
         cin >> time;
-        std::getline(cin,time);
+
         cout << "Select the Room \n\n";
 
         cout << "Choose the Room for the Class \n";
@@ -285,9 +285,8 @@ void Menu()
         string Room_Name;
         cout << "Enter the room name:";
         cin >> Room_Name;
-        std::getline(cin,Room_Name);
-        string sql = "INSERT INTO Rooms (Name) "  \
-        "VALUES ('"+Room_Name+"'); ";
+
+        string sql = "INSERT INTO Rooms (Name) VALUES ('"+Room_Name+"'); ";
 
         rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
         break;
@@ -309,10 +308,10 @@ void Menu()
         cout << "\x1B[32m Welcome to the Lecturers Menu\033[0m  \n\n";
         cout << "Write the name of the Lecturers\n\n";
         cin >> Lecturers_Name;
-        std::getline(cin,Lecturers_Name);
+
         cout << "Write the time of the Lecturers (Format 00:00PM)\n\n";
         cin >> time;
-        std::getline(cin,time);
+ 
         cout << "Select the Room \n\n";
 
         cout << "Choose the Room for the Lecturers \n";
@@ -354,10 +353,11 @@ void Menu()
 
         cout << "Student Name : "+student_name+"";
         cout << "\nClasses : \n";
+
         for(auto var : ModuleID)
         {
             SQL_Data Student_Data  = select_stmt(("SELECT * FROM Classes WHERE Module_ID = "+var+"").c_str());
-            if(Student_Data.empty()){ cout << "No more classes!"; break;}
+            if(Student_Data.empty()){ cout << "No more classes!\n"; break;}
             cout << "\t Name: " << Student_Data[0][1] << endl;
             cout << "\t Time: " << Student_Data[0][2] << endl;
             SQL_Data Room_Data  = select_stmt(("SELECT * FROM Rooms WHERE ID = "+Student_Data[0][3]+"").c_str());
@@ -374,7 +374,7 @@ void Menu()
             cout << "\t Name: " << Student_Data[0][1] << endl;
             cout << "\t Time: " << Student_Data[0][2] << endl;
             SQL_Data Room_Data  = select_stmt(("SELECT * FROM Rooms WHERE ID = "+Student_Data[0][3]+"").c_str());
-            cout << "\t Room: \n" << Room_Data[0][1];
+            cout << "\t Room: " << Room_Data[0][1];
             
 
         }
