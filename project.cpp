@@ -74,7 +74,7 @@ void sqlstmt(const char* stmt)
 
 int main() {
    
-    int option = 0;
+    int option;
 
     int result;
     string user = "";
@@ -90,6 +90,7 @@ int main() {
     }
     cout << "1. Login \n2. Create Account \n3. Leave \n";
     cin >> option;
+    cout << to_string(option);
     switch (option)
     {
     case 1:
@@ -122,8 +123,8 @@ int main() {
         
         if (result < 0)
         {
-            fprintf(stdout,"Account doesn't exist!");
-            exit(0);
+            fprintf(stdout,"Account doesn't exist!\n");
+            main();
         }
         else
             fprintf(stdout,"\x1B[32m Login Successfull\033[0m \n");
@@ -175,11 +176,8 @@ void Menu()
     cout << "Select one of the following:";
     cout << " \n 1. Add Student \n 2. Add Module \n 3. Add Classes \n 4. Add Rooms \n 5. Add Lecture \n 6. Show Student Information \n 7. Exit \n";
     cin >> option;
-    if (option < 1 || option > 7)
-    {
-        cout << "\x1B[31m Option not found try again! \033[0m \n ";
-        Menu();
-    }
+    
+    
    switch (option)
    {
     case 1:
@@ -190,12 +188,13 @@ void Menu()
         vector<int> Modules;
         cout << "Name of the Student:";
         cin >> name;
+        std::getline(cin,name);
         int counter = 0;
         int temp;
         if (data.empty())
         {
             cout << " \x1B[31m You need to add the modules first! \033[0m \n";
-            Menu();
+            break;
         }
         do
         {
@@ -222,7 +221,7 @@ void Menu()
         "VALUES ('"+name+"','"+oss.str()+"'); ";
     
         rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
-        Menu();
+     
         break;
     }
     case 2:
@@ -231,10 +230,11 @@ void Menu()
         cout << "You're now adding a Module to the database \n\n";
         cout << "Module Name:\n";
         cin >> mod_name;
-        string sql = "INSERT INTO Modules (Name) "  \
-        "VALUES ('"+mod_name+"'); ";
+        std::getline(cin,mod_name);
+        string sql = "INSERT INTO Modules (Name) VALUES ('"+mod_name+"'); ";
     
         rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
+    
         break;
     }
     case 3:
@@ -249,13 +249,15 @@ void Menu()
         if (data_room.empty())
         {
             cout << " \x1B[31m You need to add the Rooms first! \033[0m \n";
-            Menu();
+            break;
         }
         cout << "\x1B[32m Welcome to the Class Menu\033[0m  \n\n";
         cout << "Write the name of the class\n\n";
         cin >> class_name;
+        std::getline(cin,class_name);
         cout << "Write the time of the class (Format 00:00PM)\n\n";
         cin >> time;
+        std::getline(cin,time);
         cout << "Select the Room \n\n";
 
         cout << "Choose the Room for the Class \n";
@@ -283,9 +285,10 @@ void Menu()
         string Room_Name;
         cout << "Enter the room name:";
         cin >> Room_Name;
+        std::getline(cin,Room_Name);
         string sql = "INSERT INTO Rooms (Name) "  \
         "VALUES ('"+Room_Name+"'); ";
-    
+
         rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
         break;
     }
@@ -301,13 +304,15 @@ void Menu()
         if (data_room.empty())
         {
             cout << " \x1B[31m You need to add the Rooms first! \033[0m \n";
-            Menu();
+           break;
         }
         cout << "\x1B[32m Welcome to the Lecturers Menu\033[0m  \n\n";
         cout << "Write the name of the Lecturers\n\n";
         cin >> Lecturers_Name;
+        std::getline(cin,Lecturers_Name);
         cout << "Write the time of the Lecturers (Format 00:00PM)\n\n";
         cin >> time;
+        std::getline(cin,time);
         cout << "Select the Room \n\n";
 
         cout << "Choose the Room for the Lecturers \n";
@@ -382,7 +387,7 @@ void Menu()
         break;
     default:
         cout << "The option you selected isn't at the menu please select another one!";
-        Menu();
+       
         break;
    }
 
